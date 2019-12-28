@@ -1,5 +1,11 @@
 ---
 
+- name: Check where bash is installed
+  command: which bash
+  register: terraform_check_bash_path
+  failed_when: false
+  changed_when: false
+
 - name: Check that unzip is installed
   command: which unzip
   register: terraform_check_unzip_installed
@@ -37,6 +43,8 @@
   shell: >
     set -o pipefail && \
       {{ terraform_install_dir }}/terraform version | awk '{ print $NF }' | sed 's/^v//'
+  args:
+    executable: "{{ terraform_check_bash_path.stdout_lines[0] }}"
   changed_when: false
   register: terraform_check_existing_version
   when: terraform_check_existing.stat.exists
