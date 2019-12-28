@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  vars:
+    terraform_install_os_dependencies: true
+    terraform_install_dir: /opt/terraform/bin
+    terraform_projects_dir: /opt/terraform/projects
+    terraform_projects:
+      - name: terraform-template
+        repo: https://github.com/AustinCloudGuru/terraform-skeleton
+  roles:
+    - role: xanmanning.terraform

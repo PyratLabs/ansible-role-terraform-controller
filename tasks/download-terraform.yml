@@ -1,0 +1,16 @@
+---
+
+- name: Ensure the terraform_arch fact is set
+  set_fact:
+    terraform_arch: "{{ terraform_arch_lookup[ansible_architecture].arch }}"
+  when: terraform_arch is not defined
+
+- name: Get the archive path for Terraform
+  set_fact:
+    terraform_archive_path: "{{ terraform_version }}/terraform_{{ terraform_version }}_linux_{{ terraform_arch }}.zip"
+
+- name: Ensure Terraform archive is downloaded
+  get_url:
+    url: "{{ terraform_release_baseurl }}/{{ terraform_archive_path }}"
+    dest: "/tmp/terraform_{{ terraform_version }}.zip"
+    mode: 0600

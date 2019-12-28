@@ -1,0 +1,11 @@
+---
+
+- name: Ensure unzip is installed
+  apt:
+    name: unzip
+    state: present
+
+- name: Ensure git is installed
+  apt:
+    name: git
+    state: present

@@ -1,0 +1,42 @@
+---
+
+- name: Check that unzip is installed
+  command: which unzip
+  register: terraform_check_unzip_installed
+  failed_when: false
+  changed_when: false
+
+- name: Fail play if unzip is not installed
+  fail:
+    msg: unzip was not found and is required for unpacking Terraform, please ensure this is installed.
+  when: terraform_check_unzip_installed.rc > 0
+        and not terraform_install_os_dependencies
+
+- name: Check that git is installed
+  command: which git
+  register: terraform_check_git_installed
+  failed_when: false
+  changed_when: false
+
+- name: Fail play if git is not installed
+  fail:
+    msg: git was not found and is required for downloading projects, please ensure this is installed.
+  when: terraform_check_git_installed.rc > 0
+        and terraform_projects_dir is defined
+        and terraform_projects_dir
+        and terraform_projects is defined
+        and terraform_projects | length > 0
+        and not terraform_install_os_dependencies
+
+- name: Check for existing Terraform binary
+  stat:
+    path: "{{ terraform_install_dir }}/terraform"
+  register: terraform_check_existing
+
+- name: Check Terraform binary version if binary already exists
+  shell: >
+    set -o pipefail && \
+      {{ terraform_install_dir }}/terraform version | awk '{ print $NF }' | sed 's/^v//'
+  changed_when: false
+  register: terraform_check_existing_version
+  when: terraform_check_existing.stat.exists

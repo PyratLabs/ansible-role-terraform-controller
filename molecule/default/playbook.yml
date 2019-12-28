@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  become_user: terraformuser
+  vars:
+    terraform_projects:
+      - repo: https://github.com/ghostinthewires/terraform-azurerm-iis-install
+  roles:
+    - role: xanmanning.terraform

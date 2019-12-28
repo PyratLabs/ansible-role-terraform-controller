@@ -1,0 +1,50 @@
+---
+
+- name: Ensure terraform_install_dir exists
+  file:
+    path: "{{ terraform_install_dir }}"
+    state: directory
+
+- name: Ensure terraform_projects_dir exists
+  file:
+    path: "{{ terraform_projects_dir }}"
+    state: directory
+  when: terraform_projects_dir is defined and terraform_projects_dir
+
+- name: Ensure existing Terraform package is moved to keep an copy of the old version
+  command: >
+      mv {{ terraform_install_dir }}/terraform
+      {{ terraform_install_dir }}/terraform-{{ terraform_check_existing_version.stdout_lines[0] }}
+  when:
+    terraform_check_existing.stat.islnk is defined
+    and not terraform_check_existing.stat.islnk
+    and terraform_check_existing_version.stdout_lines[0] != terraform_version
+
+- name: Ensure Terraform archive is extracted to installation directory
+  unarchive:
+    src: "/tmp/terraform_{{ terraform_version }}.zip"
+    dest: "{{ terraform_install_dir }}"
+    remote_src: true
+    mode: 0755
+  when: not terraform_check_existing.stat.exists
+        or (terraform_check_existing.stat.exists
+            and terraform_check_existing_version.stdout_lines[0] != terraform_version)
+
+- name: Check that the archive has been extracted correctly
+  stat:
+    path: "{{ terraform_install_dir }}/terraform"
+  register: terraform_check_extracted
+
+- name: Ensure Terraform binary is moved to be identifiable by version
+  command: >
+    mv {{ terraform_install_dir }}/terraform
+    {{ terraform_install_dir }}/terraform-{{ terraform_version }}
+  when:
+    terraform_check_extracted.stat.islnk is defined
+    and not terraform_check_extracted.stat.islnk
+
+- name: Ensure Terraform package is symlinked
+  file:
+    src: "{{ terraform_install_dir }}/terraform-{{ terraform_version }}"
+    dest: "{{ terraform_install_dir }}/terraform"
+    state: link

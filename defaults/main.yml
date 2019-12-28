@@ -1,0 +1,12 @@
+---
+
+terraform_version: false
+
+
+terraform_install_os_dependencies: false
+
+terraform_install_dir: "{{ ansible_user_dir }}/bin"
+
+terraform_projects_dir: "{{ ansible_user_dir }}/projects"
+
+# terraform_projects: []

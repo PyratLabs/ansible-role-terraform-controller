@@ -1,0 +1,20 @@
+---
+
+- import_tasks: pre-checks.yml
+
+- include_tasks: "{{ ansible_os_family | lower }}/install-os-dependencies.yml"
+  when: terraform_install_os_dependencies is defined
+        and terraform_install_os_dependencies
+
+- import_tasks: get-version.yml
+  when: terraform_version is not defined or not terraform_version
+
+- import_tasks: download-terraform.yml
+
+- import_tasks: install-terraform.yml
+
+- import_tasks: download-projects.yml
+  when: terraform_projects is defined
+        and terraform_projects | length >= 1
+
+- import_tasks: post-checks.yml

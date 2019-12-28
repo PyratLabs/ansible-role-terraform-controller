@@ -1,0 +1,11 @@
+---
+
+- name: Ensure unzip is installed
+  zypper:
+    name: unzip
+    state: present
+
+- name: Ensure git is installed
+  zypper:
+    name: git
+    state: present
