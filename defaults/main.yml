@@ -1,12 +1,16 @@
 ---
 
+# Use a specific version of Terraform, eg. `0.11.2`. Specify `false` for latest.
 terraform_version: false
 
-
+# Allow role to install OS dependencies.
 terraform_install_os_dependencies: false
 
+# Installation directory for Terraform.
 terraform_install_dir: "{{ ansible_user_dir }}/bin"
 
+# Directory to put Terraform projects. Specify `false` to skip.
 terraform_projects_dir: "{{ ansible_user_dir }}/projects"
 
+# List of Terraform projects to be cloned with `git`. See notes in README.md
 # terraform_projects: []
