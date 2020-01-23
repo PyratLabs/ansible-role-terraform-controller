@@ -21,3 +21,4 @@ terraform_arch_lookup:
     arch: arm
 
 terraform_release_baseurl: https://releases.hashicorp.com/terraform
+terraform_github_api: https://api.github.com/repos/hashicorp/terraform

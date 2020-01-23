@@ -2,7 +2,7 @@
 
 - name: Get the version information of the latest release of Terraform
   uri:
-    url: https://api.github.com/repos/hashicorp/terraform/releases/latest
+    url: "{{ terraform_github_api }}/releases/latest"
     return_content: true
     body_format: json
   register: terraform_get_latest_version
