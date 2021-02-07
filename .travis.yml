@@ -17,28 +17,9 @@ env:
     - MOLECULE_DISTRO: fedora29
     - MOLECULE_DISTRO: amazonlinux2
 
-    # Global install
-    - MOLECULE_DISTRO: centos7
-      MOLECULE_PREPARE_PLAYBOOOK: prepare-global.yml
-      MOLECULE_PLAYBOOK: playbook-global.yml
-    - MOLECULE_DISTRO: centos8
-      MOLECULE_PREPARE_PLAYBOOOK: prepare-global.yml
-      MOLECULE_PLAYBOOK: playbook-global.yml
-    - MOLECULE_DISTRO: debian10
-      MOLECULE_PREPARE_PLAYBOOOK: prepare-global.yml
-      MOLECULE_PLAYBOOK: playbook-global.yml
-    - MOLECULE_DISTRO: ubuntu1804
-      MOLECULE_PREPARE_PLAYBOOOK: prepare-global.yml
-      MOLECULE_PLAYBOOK: playbook-global.yml
-    - MOLECULE_DISTRO: fedora29
-      MOLECULE_PREPARE_PLAYBOOOK: prepare-global.yml
-      MOLECULE_PLAYBOOK: playbook-global.yml
-    - MOLECULE_DISTRO: amazonlinux2
-      MOLECULE_PREPARE_PLAYBOOOK: prepare-global.yml
-      MOLECULE_PLAYBOOK: playbook-global.yml
 install:
   # Install test dependencies.
-  - pip install molecule==2.22 docker
+  - pip install -r molecule/requirements.txt
 
 before_script:
   # Use actual Ansible Galaxy role name for the project directory.
@@ -48,7 +29,7 @@ before_script:
 
 script:
   # Run tests.
-  - molecule test
+  - molecule test --all
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

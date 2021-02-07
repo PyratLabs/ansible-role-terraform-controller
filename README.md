@@ -17,6 +17,15 @@ This role has been tested on Ansible 2.7.0+ against the following Linux Distribu
   - Fedora 31
   - Ubuntu 18.04 LTS
 
+The role will likely run against:
+
+  - MacOS
+  - FreeBSD
+  - OpenBSD
+  - Solaris
+
+Windows, you will need to run this from WSL.
+
 ## Disclaimer
 
 If you have any problems please create a GitHub issue, I maintain this role in
@@ -44,7 +53,7 @@ Example playbook for installing to single user:
 ```yaml
 - hosts: control_hosts
   roles:
-     - { role: xanmanning.terraform, terraform_version: 0.11.14 }
+    - { role: xanmanning.terraform, terraform_version: 0.11.14 }
 ```
 
 Example playbook for installing the latest Terraform version globally:
@@ -70,13 +79,13 @@ Below is an example of a project:
 
 ```yaml
 terraform_projects:
-    - name: terraform-template                                 # Directory name to clone into
-      repo: git@github.com:AustinCloudGuru/terraform-skeleton  # Repository to clone
-      update_repo: true                                        # Always update local copy of repo
-      version:  master                                         # Check out this version of the repo
-      force: false                                             # Discard any existing working copy of the repo
-      key_file: "{{ ansible_user_dir }}/.ssh/id_rsa"           # Key file to use to clone the repo
-      recursive: true                                          # Include submodules in clone
+  - name: terraform-template                                 # Directory name to clone into
+    repo: git@github.com:AustinCloudGuru/terraform-skeleton  # Repository to clone
+    update_repo: true                                        # Always update local copy of repo
+    version:  master                                         # Check out this version of the repo
+    force: false                                             # Discard any existing working copy of the repo
+    key_file: "{{ ansible_user_dir }}/.ssh/id_rsa"           # Key file to use to clone the repo
+    recursive: true                                          # Include submodules in clone
 ```
 
 ## License
@@ -85,4 +94,4 @@ terraform_projects:
 
 ## Author Information
 
-[Xan Manning](https://xanmanning.co.uk/)
+[Xan Manning](https://xan.manning.io/)

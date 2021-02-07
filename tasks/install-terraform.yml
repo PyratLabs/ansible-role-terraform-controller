@@ -4,11 +4,13 @@
   file:
     path: "{{ terraform_install_dir }}"
     state: directory
+    mode: 0755
 
 - name: Ensure terraform_projects_dir exists
   file:
     path: "{{ terraform_projects_dir }}"
     state: directory
+    mode: 0755
   when: terraform_projects_dir is defined and terraform_projects_dir
 
 - name: Ensure existing Terraform package is moved to keep an copy of the old version

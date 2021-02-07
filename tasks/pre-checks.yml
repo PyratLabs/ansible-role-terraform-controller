@@ -40,9 +40,9 @@
   register: terraform_check_existing
 
 - name: Check Terraform binary version if binary already exists
-  shell: >
-    set -o pipefail && \
-      {{ terraform_install_dir }}/terraform version | awk '{ print $NF }' | sed 's/^v//'
+  shell: |
+    set -o pipefail
+    {{ terraform_install_dir }}/terraform version | awk '{ print $NF }' | sed 's/^v//'
   args:
     executable: "{{ terraform_check_bash_path.stdout_lines[0] }}"
   changed_when: false
