@@ -1,6 +1,7 @@
 ---
 galaxy_info:
   role_name: terraform
+  namespace: xanmanning
   author: Xan Manning
   description: Ansible Role to configure system to be a Hashicorp Terraform controller
   company: Pyrat Ltd.

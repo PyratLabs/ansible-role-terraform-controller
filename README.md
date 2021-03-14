@@ -2,7 +2,7 @@
 
 Ansible role for installing [Hashicorp Terraform](https://www.terraform.io/) CLI.
 
-[![Build Status](https://www.travis-ci.org/PyratLabs/ansible-role-terraform-controller.svg?branch=master)](https://www.travis-ci.org/PyratLabs/ansible-role-terraform-controller)
+[![CI](https://github.com/PyratLabs/ansible-role-terraform-controller/actions/workflows/ci.yml/badge.svg)](https://github.com/PyratLabs/ansible-role-terraform-controller/actions/workflows/ci.yml)
 
 ## Requirements
 
